@@ -8,13 +8,13 @@ from myshop.models import db
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
 
-    title = db.Column(db.String, nullable=False)
+    title = db.Column(db.String(100), nullable=False)
 
     price = db.Column(db.Integer, nullable=False)
 
-    category = db.Column(db.String, nullable=False)
+    category = db.Column(db.String(50), nullable=False)
 
-    user_id = db.Column(db.String, default=0)
+    user_id = db.Column(db.Integer, default=0)
 
     created_on = db.Column(db.Integer, default=0)
 

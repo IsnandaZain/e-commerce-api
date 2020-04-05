@@ -3,7 +3,9 @@ from .myshopexceptions import (
     BadRequest,
     Forbidden,
     Conflict,
-    NotFound
+    NotFound,
+    LogoutError,
+    UserNotFound
 )
 
 __all__ = [
@@ -11,5 +13,7 @@ __all__ = [
     BadRequest,
     Forbidden,
     Conflict,
-    NotFound
+    NotFound,
+    LogoutError,
+    UserNotFound
 ]

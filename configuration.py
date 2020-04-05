@@ -54,6 +54,9 @@ class MyShopConfig(object):
     # WEB frontend configuration
     WEB_URL = getenv("WEB_URL", "http://localhost:5000")
 
+    # secret key
+    SECRET_KEY = getenv("SECRET_KEY", "secretkeymyshopapi")
+
     # Konfigurasi logging yang menampilkan log level INFO (INFO, ERROR, WARNING)
     # Console :
     # output : "INFO 2020-04-04 15:45:55,126 - myshop.route.v1.error - error.py:12: error authentifikasi"

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from myshop.controllers.user import register as register_ctrl
+from myshop.controllers.user import auth as auth_ctrl
 from myshop.exceptions import BadRequest
 from myshop.libs import auth, validation
 from myshop.libs.ratelimit import ratelimit
@@ -67,7 +67,7 @@ def user_register():
     if len(password) < 8:
         raise BadRequest("Kata sandi minimal 8 karakter")
 
-    user = register_ctrl.register(
+    user = auth_ctrl.register(
         email=email,
         username=username,
         password=password,
@@ -85,3 +85,57 @@ def user_register():
     }
 
     return jsonify(response)
+
+
+@bp.route("/user/login", methods=["POST"])
+@ratelimit(300)
+def user_login():
+    """Login user untuk mendapatkan user token
+
+    **endpoint**
+
+    .. sourcecode:: http
+
+        POST /user/login
+
+    **success response**
+
+    .. sourcecode:: http
+
+        HTTP/1.1 200 OK
+        Content-Type: text/javascript
+
+        {
+            "status": 200,
+            "user": {
+                "id": 1,
+                "username": "isnanda",
+                "role": "user",
+                "is_suspend": false,
+            }
+        }
+
+    :form username: username atau email user
+    :form password: password user
+    """
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    # check mandatory
+    if None in (username, password):
+        raise BadRequest("Username atau password kosong")
+
+    user = auth_ctrl.login(identifier=username, password=password)
+
+    response = {
+        "status": 200,
+        "user_token": user.token,
+        "user": {
+            "id": user.id,
+            "username": user.username,
+            "role": user.role,
+            "is_suspend": user.is_suspend,
+        }
+    }
+
+    return josnify(response)

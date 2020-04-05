@@ -73,8 +73,8 @@ class MyShopDB(SQLAlchemy):
         """
         self.__memory_only(app=app)
 
-        self._execute_for_all_tables(app, bin, "create_all")
-
+        self._execute_for_all_tables(app, bind, "create_all")
+        
     def __memory_only(self, app):
         """Override to make sure only drop sqlite memory"""
         database_uri = self.get_app(app).config['SQLALCHEMY_DATABASE_URI']

@@ -7,6 +7,7 @@ from flask import Flask, g, request, blueprints
 from myshop import models, events, metrics
 from myshop.libs import ratelimit
 from myshop.libs.misc import walk_modules
+from myshop.models import UserTokens
 from configuration import MyShopConfig
 
 log = logging.getLogger(__name__)
@@ -32,6 +33,10 @@ def factory(config=MyShopConfig):
     # load database
     models.db.init_app(app_instance)
 
+    """ generate table for database
+    with app_instance.app_context():
+        models.db.create_all(app=app_instance) """
+
     # setup middleware
     metrics.setup_metrics(app_instance)
 
@@ -41,6 +46,15 @@ def factory(config=MyShopConfig):
         log.debug("request form '%r'" % request.form)
         log.debug("request headers '%r'" % request.headers)
         g.request_start_time = time.time()
+
+        token = request.headers.get("Authorization")
+
+        if token:
+            user = UserTokens.validate(token)
+        else:
+            user = None
+
+        g.user_auth = user
 
     @app_instance.after_request
     def after(response):

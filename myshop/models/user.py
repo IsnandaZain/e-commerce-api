@@ -4,6 +4,7 @@ from typing import List
 
 import pendulum
 from passlib.hash import md5_crypt as pwd_context
+from sqlalchemy import or_
 
 from myshop.models import db
 from configuration import MyShopConfig
@@ -33,7 +34,7 @@ class Users(db.Model):
     avatar = db.Column(db.String(50), default="")
     avatar_ext = db.Column(db.String(5), default="")
 
-    role = db.Column(db.String, default="user")
+    role = db.Column(db.String(20), default="user")
 
     created_on = db.Column(db.DateTime)
 
@@ -76,3 +77,20 @@ class Users(db.Model):
             bool (True or False)
         """
         return pwd_context.verify(password, self.password)
+
+
+def get_by_username_or_email(identifier: str) -> Users:
+    """Get user by username
+
+    Args:
+        identifier: username or email user
+
+    Returns:
+        Users object
+    """
+    return Users.query.filter(
+        or_(
+            Users.username == identifier,
+            Users.email == identifier
+        )
+    ).first()

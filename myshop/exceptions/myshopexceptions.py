@@ -64,3 +64,13 @@ class NotFound(MyShopException):
 
     message = __doc__.strip()
     status_code = 404
+
+
+class LogoutError(MyShopException):
+    """Indicates that token auth invalid"""
+    message = __doc__.strip()
+    status_code = 406
+
+
+class UserNotFound(BadRequest):
+    message = "User tidak ditemukan"
