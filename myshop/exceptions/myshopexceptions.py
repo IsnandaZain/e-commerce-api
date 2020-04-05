@@ -39,3 +39,12 @@ class BadRequest(MyShopException):
 
     message = __doc__.strip()
     status_code = 400
+
+
+class Forbidden(MyShopException):
+    """Authentication was provided, but the
+    authenticated user is not permitted to perform
+    the requested operation."""
+
+    message = __doc__.strip()
+    status_code = 300
