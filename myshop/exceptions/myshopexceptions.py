@@ -48,3 +48,19 @@ class Forbidden(MyShopException):
 
     message = __doc__.strip()
     status_code = 300
+
+
+class Conflict(MyShopException):
+    """Indicates because of conflict in the request
+    E.g data already exists"""
+
+    message = __doc__.strip()
+    status_code = 409
+
+
+class NotFound(MyShopException):
+    """Indicates that the request data is no exists
+    E.g. data missing, endpoint not found"""
+
+    message = __doc__.strip()
+    status_code = 404

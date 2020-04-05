@@ -25,6 +25,8 @@ class MyShopConfig(object):
     STATIC_URL = "http://127.0.0.1:5000/file"
     STORAGE_PATH = getenv("STORAGE_PATH", "/var/www/html/file")
 
+    INTERNAL_TOKEN = "bnsultjhbqyydugtjvchrioszozwxmlpcocdmjdv"
+
     # database config
     MYSQL_HOST = getenv("DB_HOST", "127.0.0.1")
     MYSQL_USER = getenv("DB_USER", "root")

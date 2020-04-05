@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, send_file
 
-from myshop.controllers import player as player_ctrl
 from myshop.exceptions import BadRequest, NotFound
 from myshop.libs.ratelimit import ratelimit
 from configuration import MyShopConfig
