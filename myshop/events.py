@@ -23,7 +23,7 @@ def set_unicode(*args):
     connection = args[0]
     if isinstance(connection, MySqlConnection):
         cursor = connection.cursor()
-        cursor.execute("SET NAMES 'utf8mb4' COLLACTE 'utf8mb4_unicode_ci'")
+        cursor.execute("SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'")
 
 
 @event.listens_for(Engine, "before_cursor_execute")

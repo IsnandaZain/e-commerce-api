@@ -76,7 +76,6 @@ def user_register():
 
     response = {
         "status": 200,
-        "user_token": user.token,
         "user": {
             "id": user.id,
             "username": user.username,

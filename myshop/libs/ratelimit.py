@@ -4,13 +4,14 @@ from flask import g, request
 from functools import wraps
 
 from myshop.exceptions import BadRequest
+from myshop.libs.cache import cache
 
 
 class RateLimit(object):
     expiration_window = 10
 
     def __init__(self, key_prefix, limit, per, send_x_headers):
-        self.rest = (int(time.time()) // per) * per + per
+        self.reset = (int(time.time()) // per) * per + per
         self.key = key_prefix + str(self.reset)
         self.limit = limit
         self.per = per

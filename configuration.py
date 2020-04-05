@@ -44,6 +44,10 @@ class MyShopConfig(object):
     SQLALCHEMY_POOL_RECYCLE = 60
     SQLALCHEMY_MAX_OVERFLOW = 20
 
+    # redis config
+    REDIS_HOST = getenv("REDIS_HOST", "127.0.0.1")
+    REDIS_PORT = getenv("REDIS_PORT", "6379")
+
     # max file upload 100mb
     MAX_CONTENT_LENGTH = getenv("MAX_CONTENT_LENGTH", 100 * 1024 * 1024, int)
 

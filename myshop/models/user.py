@@ -33,8 +33,6 @@ class Users(db.Model):
     avatar = db.Column(db.String(50), default="")
     avatar_ext = db.Column(db.String(5), default="")
 
-    is_admin = db.Column(db.Boolean, default=False)
-
     role = db.Column(db.String, default="user")
 
     created_on = db.Column(db.DateTime)
