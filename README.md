@@ -12,8 +12,8 @@ Sebuah API untuk keperluan Website E-Commerce yang mencakup fitur : <br>
 
 <h4> Product </h4>
 <ul>
-  <li> Melihat list product</li>
-  <li> Melihat detail product</li>
+  <li> Menampilkan list product</li>
+  <li> Menampilkan detail product</li>
   <li> Menginput product baru</li>
   <li> Mengupdate product</li>
   <li> Menghapus product</li>
