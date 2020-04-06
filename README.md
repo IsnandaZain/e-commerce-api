@@ -1,6 +1,9 @@
 # e-commerce-api (On Going)
 
-Sebuah Aplikasi Website E-Commerce yang mencakup fitur :
+Stack yang digunakan :
+
+
+Sebuah API untuk keperluan Website E-Commerce yang mencakup fitur :
 - Product, sub fitur :
   - Menampilkan List Product
   - Menampilkan Detail Product
