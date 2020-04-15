@@ -5,20 +5,31 @@ from sqlalchemy.orm import relationship, backref
 from myshop.models import db
 
 
-class Product(db.Model):
+class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
 
     title = db.Column(db.String(100), nullable=False)
 
+    description = db.Column(db.String(100), nullable=False)
+    
     price = db.Column(db.Integer, nullable=False)
 
     category = db.Column(db.String(50), nullable=False)
 
     user_id = db.Column(db.Integer, default=0)
 
-    created_on = db.Column(db.Integer, default=0)
+    stok = db.Column(db.Integer, default=0)
+
+    total_view = db.Column(db.Integer, default=0)
+
+    total_review = db.Column(db.Integer, default=0)
+
+    created_on = db.Column(db.DateTime, default=0)
 
     is_deleted = db.Column(db.Integer, default=0)
+
+    updated_on = db.Column(db.DateTime, default=0)
+
 
     def __init__(self, title, price, category):
         """
