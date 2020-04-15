@@ -1,30 +1,46 @@
 # e-commerce-api (On Going)
 
-Stack yang digunakan :
+<h3> Stack yang digunakan : </h3> <br>
 
+![](flask-logo.png)
 
-Sebuah API untuk keperluan Website E-Commerce yang mencakup fitur :
-- Product, sub fitur :
-  - Menampilkan List Product
-  - Menampilkan Detail Product
-  - Input Product
-  - Update Product
-  - Delete Product
+and : MYSQL, SQLALCHEMY (ORM), REDIS
+
+<br>
+<h3> ABOUT THE APPLICATION </h3>
+Sebuah API untuk keperluan Website E-Commerce yang mencakup fitur : <br>
+
+<h4> Product </h4>
+<ul>
+  <li> Menampilkan list product</li>
+  <li> Menampilkan detail product</li>
+  <li> Menginput product baru</li>
+  <li> Mengupdate product</li>
+  <li> Menghapus product</li>
+</ul>
   
-- Keranjang Belanja
-  - Menambah Item ke Keranjang Belanja
-  - Menghapus Item dari Keranjang Belanja
-  - Melakukan proses pembayaran
+<h4> Keranjang Belanja </h4>
+<ul>
+  <li> Menambah Item ke Keranjang Belanja</li>
+  <li> Menghapus Item dari Keranjang Belanja</li>
+  <li> Melakukan proses pembayaran</li>
+</ul>
   
-- User / Profile
-  - Melihat Profil User
+<h4> User / Profile </h4>
+<ul>
+  <li> Melihat Profil User</li>
+</ul>
   
-- Login & Register
-  - Register user baru
-  - Login user
+<h4> Login & Register </h4>
+<ul>
+  <li> Register user baru</li>
+  <li> Login user</li>
+</ul>
   
-- Comment & Rating
-  - Memberikan comment pada product
-  - Memberikan rating pada product
-  
-- Pengecekan Resi
+<h4> Comment & Rating </h4>
+<ul>
+  <li> Memberikan comment pada product</li>
+  <li> Memberikan rating pada product</li>
+</ul>
+
+<h4> Pengecekan Resi </h4>
