@@ -45,3 +45,31 @@ def delete(product_id: int):
     db.session.flush()
 
     return product
+
+
+def list(page: int, count: int, category: str, sort: str):
+    filters = [
+        Products.is_deleted == 0,
+    ]
+
+    sort_collections = {
+        "-id": Products.id.desc(),
+    }
+
+    if category:
+        filters.append(Products.category == category)
+
+    sort_apply = sort_collections[sort]
+        
+    products = Products.query.filter(
+        *filters
+    ).order_by(
+        sort
+    ).paginate(
+        page=page,
+        per_page=count,
+        error_out=False,
+    )
+
+    return products
+
