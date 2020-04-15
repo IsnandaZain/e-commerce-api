@@ -21,7 +21,7 @@ def product_get(product_id):
         "id": product.id,
         "title": product.title,
         "description": product.description,
-        "pricce": product.price,
+        "price": product.price,
         "user": {
             "id": product.user.id,
             "fullname": product.user.fullname,
@@ -64,7 +64,7 @@ def product_list():
                 "id": product.id,
                 "title": product.title,
                 "description": product.description,
-                "pricce": product.price,
+                "price": product.price,
                 "user": {
                     "id": product.user.id,
                     "fullname": product.user.fullname,
