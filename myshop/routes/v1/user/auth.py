@@ -80,6 +80,7 @@ def user_register():
         "status": 200,
         "user": {
             "id": user.id,
+            "email": user.email,
             "fullname": user.fullname,
             "username": user.username,
             "role": user.role,
