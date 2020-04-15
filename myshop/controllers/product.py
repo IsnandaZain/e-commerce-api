@@ -73,3 +73,31 @@ def list(page: int, count: int, category: str, sort: str):
 
     return products
 
+
+def update(product_id: int, title: str, description: str, price: int,
+           category: str, stok: int):
+    # get data product
+    product = product_mdl.get_by_id(product_id=product_id)
+
+    if product.is_deleted == 1:
+        raise BadRequest("Product sudah dihapus")
+
+    if title:
+        product.title = title
+
+    if description:
+        product.description = description
+
+    if price:
+        product.price = price
+
+    if category:
+        product.category = category
+
+    if stok:
+        product.stok = stok
+
+    db.session.add(product)
+    db.session.flush()
+
+    return product

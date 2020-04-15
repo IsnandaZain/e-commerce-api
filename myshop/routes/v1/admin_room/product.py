@@ -66,6 +66,45 @@ def product_create():
     return jsonify(response)
 
 
+@bp.route("/dashboard/product/update/<int:product_id>", methods=["PUT"])
+def product_update(product_id):
+    """Update product
+
+    """
+    title = request.form.get("title")
+    description = request.form.get("description")
+    price = request.form.get("price")
+    category = request.form.get("category")
+    stok = request.form.get("stok")
+
+    total_component = sum(bool(i) for i in (title, description, price, category, stok))
+    if total_component == 0:
+        raise BadRequest("Tidak ada data yang diubah")
+
+    # type conversion
+    if price:
+        price = int(price)
+
+    if stok:
+        stok = int(stok)
+
+    product = product_ctrl.update(
+        product_id=product_id,
+        title=title,
+        description=description,
+        price=price,
+        category=category,
+        stok=stok
+    )
+
+    response = {
+        "status": 200,
+        "message": "Berhasil mengupdate product"
+    }
+
+    return jsonify(response)
+
+
 @bp.route("/dashboard/product/<int:product_id>", methods=["GET"])
 def product_get(product_id):
     """Get product
