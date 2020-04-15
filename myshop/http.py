@@ -66,9 +66,9 @@ def factory(config=MyShopConfig):
             raise
 
         resp = time.time() - g.request_start_time
-        log.info("endpoint '%s' response time %.3f", request.url_rule, resp)
+        log.info("endpoint '%s' response time %.3f" % (request.url_rule, resp))
 
-        log.info("total query %i", getattr(g, "total_query", 0))
+        log.info("total query %i" % getattr(g, "total_query", 0))
 
         limit = ratelimit.get_view_rate_limit()
         if limit and limit.send_x_headers:

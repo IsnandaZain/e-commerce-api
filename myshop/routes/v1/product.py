@@ -7,68 +7,30 @@ from myshop.libs.ratelimit import ratelimit
 
 bp = Blueprint(__name__, "product")
 
-@bp.route("/product/create", methods=["POST"])
-def product_create():
-    """Create product
+@bp.route("/product/<int:product_id>", methods=["GET"])
+def product_get(product_id):
+    """Get product
 
-    **endpoint**
-
-    .. sourcecode:: http
-
-        POST /product/create
-    
-    **success response**
-
-    .. sourcecode:: http
-
-        HTTP/1.1 200 OK
-        Content-Type: text/javascript
-
-        {
-            "status": 200,
-            "id": ,
-        }
-
-    :form title: nama produk
-    :form price: harga produk
-    :form size_: [list] ukuran dari produk
-    :form color_: [list] ketersediaan warna dari produk
-    :form category: category dari produk (sepatu, baju, celana, tas)
     """
-    title = request.form.get("title")
-    price = request.form.get("price")
-    size_ = request.form.get("size_")
-    color_ = request.form.get("color_")
-    category = request.form.get("category")
-
-    if None in (title, price, size_, color_, category):
-        raise BadRequest("terdapat komponen yang masih kosong")
-
-    # type conversion
-    price = int(price)
-
-    size_list_ = []
-    for size in size_:
-        if not size.isdigit():
-            raise BadRequest("nilai size bukan angka")
-        
-        size_list_.append(int(size))
-
-    color_list_ = []
-    for color in color_:
-        color_list_.append(color)
-    
-    product = product_ctrl.create(
-        title=title,
-        price=price,
-        size=size_list_,
-        color=color_list_,
-        category=category,
+    product = product_ctrl.get(
+        product_id=product_id
     )
 
     response = {
         "status": 200,
         "id": product.id,
+        "title": product.title,
+        "description": product.description,
+        "pricce": product.price,
+        "user": {
+            "id": product.user.id,
+            "fullname": product.user.fullname,
+            "phone_number": product.user.phone_number,
+        },
+        "stok": product.stok,
+        "total_view": product.total_view,
+        "total_review": product.total_review,
+        "created_on": product.created_on.timestamp(),
     }
 
     return jsonify(response)

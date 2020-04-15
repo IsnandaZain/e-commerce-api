@@ -1,4 +1,5 @@
 import time
+import pendulum
 import uuid
 
 import jwt
@@ -33,7 +34,8 @@ class UserTokens(db.Model):
         self.user_id = user_id
         self.token = self.gen_token(user_id)
         
-        self.created_on = time.time()
+
+        self.created_on = pendulum.now()
 
     def gen_token(self, user_id):
         """Generate token for access credential information

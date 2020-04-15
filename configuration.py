@@ -65,7 +65,7 @@ class MyShopConfig(object):
         "disable_existing_loggers": False,
         "formatters": {
             "verbose": {
-                "format": "[%(levelname)s] %(asctime)s - %(name)s - %(filename)s:%(lineold)d: %(message)s", 
+                "format": "[%(levelname)s] %(asctime)s - %(name)s - %(filename)s:%(lineno)d: %(message)s", 
                 "datefmt": "%Y-%m-%d %H:%M:%S"
             }
         },
