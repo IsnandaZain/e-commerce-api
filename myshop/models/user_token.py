@@ -78,4 +78,4 @@ def generate_token(user_id: int) -> str:
     db.session.add(user_token)
     db.session.flush()
 
-    return user_token.user
+    return user_token.token

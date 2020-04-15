@@ -38,7 +38,6 @@ def user_register():
                     "small": "",
                 },
                 "is_admin": false,
-                "is_suspended": false,
             }
         }
 
@@ -80,7 +79,6 @@ def user_register():
             "id": user.id,
             "username": user.username,
             "role": user.role,
-            "is_suspend": user.is_suspend,
         }
     }
 
@@ -111,7 +109,6 @@ def user_login():
                 "id": 1,
                 "username": "isnanda",
                 "role": "user",
-                "is_suspend": false,
             }
         }
 
@@ -134,8 +131,7 @@ def user_login():
             "id": user.id,
             "username": user.username,
             "role": user.role,
-            "is_suspend": user.is_suspend,
         }
     }
 
-    return josnify(response)
+    return jsonify(response)
