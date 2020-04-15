@@ -8,11 +8,12 @@ from myshop.models import user as user_mdl
 from myshop.models import user_token as user_token_mdl
 
 
-def register(email: str, username: str, password: str, role: str):
+def register(email: str, fullname: str, username: str, password: str, role: str):
     """Register new user
 
     Args:
         email: email user
+        fullname: fullname user
         username: username user
         password: password user
         role: role user
@@ -27,15 +28,14 @@ def register(email: str, username: str, password: str, role: str):
         raise Conflict("username atau email suadh dipakai akun lain")
 
     # save user
-    user = Users(username, email, password)
-    user.fullname = username
+    user = Users(username, email, password, fullname)
     user.role = role
 
-    user.token = user_token_mdl.generate_token(user.id)
-    
     db.session.add(user)
     db.session.flush()
 
+    user.token = user_token_mdl.generate_token(user.id)
+    
     return user
 
 
@@ -58,6 +58,6 @@ def login(identifier: str, password: str) -> Users:
     if not user.verify_password(password):
         raise BadRequest("Password salah")
 
-    user.token = user_token_mdl.generate_token(user.id)
+    user.token = user_token_mdl.get_by_id(user.id)
 
     return user

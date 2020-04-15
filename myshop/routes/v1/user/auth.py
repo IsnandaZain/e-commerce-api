@@ -42,17 +42,19 @@ def user_register():
         }
 
     :form email: user email
+    :form fullname: user fullname
     :form username: username register (3-35 karater, alfanumerik dan _ )
     :form password: password user (min 8 karakter)
     """
     email = request.form.get("email")
+    fullname = request.form.get("fullname")
     username = request.form.get("username")
     password = request.form.get("password")
     role = request.form.get("role", "user")
 
     # raise exception if mandatory variabel is None
-    if None in (email, username, password):
-        raise BadRequest("email, username atau password kosong")
+    if None in (email, username, password, fullname):
+        raise BadRequest("email, username, fullname atau password kosong")
 
     # check email pattern
     if not validation.email.match(email):
@@ -68,6 +70,7 @@ def user_register():
 
     user = auth_ctrl.register(
         email=email,
+        fullname=fullname,
         username=username,
         password=password,
         role=role,
@@ -77,6 +80,7 @@ def user_register():
         "status": 200,
         "user": {
             "id": user.id,
+            "fullname": user.fullname,
             "username": user.username,
             "role": user.role,
         }

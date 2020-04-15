@@ -81,3 +81,15 @@ def generate_token(user_id: int) -> str:
     db.session.flush()
 
     return user_token.token
+
+
+def get_by_id(user_id: int) -> str:
+    """Get token by id"""
+    user_token = UserTokens.query.filter(
+        UserTokens.user_id == user_id,
+        UserTokens.is_deleted == 0,
+    ).order_by(
+        UserTokens.id.desc()
+    ).first()
+
+    return user_token.token
