@@ -44,7 +44,7 @@ def product_create():
     product_image = request.files.get("product_image")
     product_video = request.files.get("product_video")
 
-    if None in (title, description, price, category, stok, product_image):
+    if None in (title, description, price, category, stok, product_image, product_video):
         raise BadRequest("terdapat komponen yang masih kosong")
 
     # type conversion

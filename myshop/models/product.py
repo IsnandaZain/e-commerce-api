@@ -88,6 +88,6 @@ class Products(db.Model):
         return file.url(self.video, 'products_video')
 
 def get_by_id(product_id) -> Products:
-    product = Products.query.filter_by(id=product_id).first()
+    product = Products.query.filter_by(id=product_id, is_deleted=0).first()
 
     return product
