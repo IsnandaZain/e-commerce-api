@@ -24,7 +24,9 @@ class BasketProducts(db.Model):
 
     product = relationship("Products", backref="basketproduct_product")
 
-    basket = relationship("Baskets", backref="basketproduct_basket")
+    basket = relationship("Baskets", backref="basketproduct_basket",
+                          primaryjoin="and_(BasketProducts.basket_id==Baskets.id ,"
+                                      "BasketProducts.is_deleted==0)")
 
     def __init__(self, basket_id, product_id, total):
         """

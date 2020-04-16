@@ -37,3 +37,30 @@ def basket_create():
     }
 
     return jsonify(response)
+
+
+@bp.route("/basket/user/<int:user_id>", methods=["GET"])
+def basket_by_user(user_id):
+    """Get basket
+
+    """
+    basket = basket_ctrl.get_by_user(
+        user_id=user_id
+    )
+
+    if not basket:
+        response = {
+            "status": 204,
+            "message": "Keranjang tidak ditemukan"
+        }
+
+    else:
+        response = {
+            "status": 200,
+            "id": basket.id,
+            "user": basket.user_json,
+            "basket_product": basket.basket_product_json,
+            "created_on": basket.created_on,
+        }
+
+    return jsonify(response)

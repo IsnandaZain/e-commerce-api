@@ -124,11 +124,7 @@ def product_get(product_id):
         "title": product.title,
         "description": product.description,
         "price": product.price,
-        "user": {
-            "id": product.user.id,
-            "fullname": product.user.fullname,
-            "phone_number": product.user.phone_number,
-        },
+        "user": product.user_json,
         "product_image": {
             "image": product.image_url,
             "thumb": product.image_thumb_url,

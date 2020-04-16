@@ -87,6 +87,14 @@ class Products(db.Model):
     def video_url(self):
         return file.url(self.video, 'products_video')
 
+    @property
+    def user_json(self):
+        return {
+            "id": self.user.id,
+            "username": self.user.username,
+            "phone_number": self.user.phone_number
+        }
+
 def get_by_id(product_id) -> Products:
     product = Products.query.filter_by(id=product_id, is_deleted=0).first()
 

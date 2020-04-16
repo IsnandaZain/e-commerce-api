@@ -42,3 +42,12 @@ def create(user_id: int, product_ids: List[int], totals: List[int]):
             db.session.flush()
 
     return basket
+
+
+def get_by_user(user_id):
+    basket = basket_mdl.get_by_userid(user_id=user_id)
+
+    if not basket:
+        return None
+    
+    return basket

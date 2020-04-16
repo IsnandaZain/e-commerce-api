@@ -29,7 +29,38 @@ class Baskets(db.Model):
         self.user_id = user_id
 
         self.created_on = pendulum.now()
-    
+
+    @property
+    def user_json(self):
+        return {
+            "id": self.user.id,
+            "username": self.user.username,
+            "phone_number": self.user.phone_number,
+        }
+
+    @property
+    def basket_product_json(self):
+        result = []
+        if self.basketproduct_basket:
+            for basket in self.basketproduct_basket:
+                result.append({
+                    "id": basket.id,
+                    "product_id": basket.product_id,
+                    "product_title": basket.product.title,
+                    "product_description": basket.product.description,
+                    "product_price": basket.product.price,
+                    "product_image": {
+                        "image": basket.product.image_url,
+                        "thumb": basket.product.image_thumb_url,
+                        "icon": basket.product.image_icon_url,
+                    },
+                    "totals": basket.total,
+                    "product_user": basket.product.user_json,
+                })
+
+            return result
+        else:
+            return None
 
 def get_by_userid(user_id: int) -> Baskets:
     return Baskets.query.filter_by(user_id=user_id, is_deleted=0).first()
