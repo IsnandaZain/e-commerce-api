@@ -51,3 +51,15 @@ def get_by_user(user_id):
         return None
     
     return basket
+
+
+def item_delete(basket_id: int, product_ids: int):
+    for product_id in product_ids:
+        basket_product = basket_product_mdl.get_by_basket_and_product(basket_id=basket_id, product_id=product_id)
+
+        if not basket_product:
+            raise BadRequest("Product tidak ditemukan di Keranjang")
+        
+        basket_product.is_deleted = 1
+        db.session.add(basket_product)
+        db.session.flush()

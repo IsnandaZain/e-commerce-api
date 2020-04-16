@@ -55,6 +55,7 @@ class Baskets(db.Model):
                         "icon": basket.product.image_icon_url,
                     },
                     "totals": basket.total,
+                    "created_on": basket.product.created_on.timestamp(),
                     "product_user": basket.product.user_json,
                 })
 

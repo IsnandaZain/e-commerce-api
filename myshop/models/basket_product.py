@@ -40,3 +40,15 @@ class BasketProducts(db.Model):
         self.total = total
 
         self.created_on = pendulum.now()
+
+
+def get_by_basketid(basket_id: int) -> BasketProducts:
+    return BasketProducts.query.filter_by(basket_id=basket_id, is_deleted=0)
+
+
+def get_by_productid(product_id: int) -> BasketProducts:
+    return BasketProducts.query.filter_by(product_id=product_id, is_deleted=0)
+
+
+def get_by_basket_and_product(basket_id: int, product_id: int) -> BasketProducts:
+    return BasketProducts.query.filter_by(basket_id=basket_id, product_id=product_id, is_deleted=0).first()
