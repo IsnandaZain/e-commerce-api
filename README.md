@@ -43,6 +43,15 @@ Sebuah API untuk keperluan Website E-Commerce yang mencakup fitur : <br>
   <li> Memberikan rating pada product</li>
 </ul>
 
+<h4> Voucher dan Promo </h4>
+<ul>
+  <li> Menginput Voucher / Promo </li>
+  <li> Menampilkan detail Voucher / Promo </li>
+  <li> Menampilkan list Voucher / Promo </li>
+  <li> Mengupdate Voucher / Promo </li>
+  <li> Menghapus Voucher / Promo </li>
+</ul>
+
 <h4>Search Product</h4>
 
 <h4> Pengecekan Resi </h4>
