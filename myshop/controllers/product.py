@@ -23,7 +23,7 @@ def image_valid_ratio(image) -> bool:
 
 
 def create(title: str, description: str, price: int, category: str, stok: int, 
-           user_id: int, product_image: FileStorage):
+           user_id: int, product_image: FileStorage, product_video: FileStorage):
     product = Products(
         title=title,
         description=description,
@@ -63,6 +63,9 @@ def create(title: str, description: str, price: int, category: str, stok: int,
     size_icon = (72, 96)
     im = ImageOps.fit(img, size_icon, Image.ANTIALIAS)
     product.set_image_icon(im, product_image.filename)
+
+    # set video for product
+    product.set_video(product_video, product_video.filename)
 
     db.session.add(product)
     db.session.flush()

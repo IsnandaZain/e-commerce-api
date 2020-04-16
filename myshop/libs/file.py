@@ -70,6 +70,8 @@ def save(file, subdir: str, filename: str = None, close_after=True) -> str:
             file.save(str(upload_dir / filename), quality=90)
         else:
             file.save(str(upload_dir / filename), quality=90)
+    else:
+        file.save(str(upload_dir / filename))
 
     if close_after:
         file.close()

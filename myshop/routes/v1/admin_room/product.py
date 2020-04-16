@@ -42,6 +42,7 @@ def product_create():
     category = request.form.get("category")
     stok = request.form.get("stok")
     product_image = request.files.get("product_image")
+    product_video = request.files.get("product_video")
 
     if None in (title, description, price, category, stok, product_image):
         raise BadRequest("terdapat komponen yang masih kosong")
@@ -57,6 +58,7 @@ def product_create():
         stok=stok,
         user_id=auth.user.id,
         product_image=product_image,
+        product_video=product_video,
     )
 
     response = {

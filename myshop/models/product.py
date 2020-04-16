@@ -29,6 +29,8 @@ class Products(db.Model):
 
     image_icon = db.Column(db.String(50), default="")
 
+    video = db.Column(db.String(50), default="")
+
     total_view = db.Column(db.Integer, default=0)
 
     total_review = db.Column(db.Integer, default=0)
@@ -78,6 +80,12 @@ class Products(db.Model):
     def image_icon_url(self):
         return file.url(self.image_icon, 'products_icon')
 
+    def set_video(self, videofile: str = None, filename: str = None):
+        self.video = file.save(videofile, 'products_video', filename)
+
+    @property
+    def video_url(self):
+        return file.url(self.video, 'products_video')
 
 def get_by_id(product_id) -> Products:
     product = Products.query.filter_by(id=product_id).first()
