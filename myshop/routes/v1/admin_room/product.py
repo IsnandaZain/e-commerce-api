@@ -6,7 +6,7 @@ from myshop.libs.ratelimit import ratelimit
 from myshop.libs import auth
 
 
-bp = Blueprint(__name__, "product")
+bp = Blueprint(__name__, "dashboard_product")
 
 @bp.route("/dashboard/product/create", methods=["POST"])
 def product_create():

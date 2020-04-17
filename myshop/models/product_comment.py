@@ -57,5 +57,5 @@ class ProductComments(db.Model):
 
 
 def get_by_id(comment_id: int) -> ProductComments:
-    return ProductComments.quuery.filter_by(id=comment_id, is_deleted=0).first()
+    return ProductComments.query.filter_by(id=comment_id, is_deleted=0).first()
     

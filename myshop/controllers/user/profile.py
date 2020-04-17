@@ -75,6 +75,29 @@ def update_profile(user_id: int, username: str = None, fullname: str = None, gen
     return user
 
 
+def list_profile(page:int = 1, count: int = 12, sort: str = "-username"):
+    sort_collections = {
+        "-username": Users.username.desc(),
+        "username": Users.username.asc(),
+        "-id": Users.id.desc(),
+        "id": Users.id.asc(),
+    }
+
+    sort_apply = sort_collections[sort]
+
+    users = Users.query.filter(
+        Users.role == "user"
+    ).order_by(
+        sort_apply
+    ).paginate(
+        page=page,
+        per_page=count,
+        error_out=False
+    )
+
+    return users
+
+
 def update_avatar(user, avatar):
     """Update avatar user"""
     filename = file.safe_filename(filename=avatar.filename)
