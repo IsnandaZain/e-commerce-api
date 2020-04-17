@@ -84,6 +84,7 @@ def user_register():
             "fullname": user.fullname,
             "username": user.username,
             "role": user.role,
+            "avatar": user.avatar_url
         }
     }
 
@@ -136,6 +137,7 @@ def user_login():
             "id": user.id,
             "username": user.username,
             "role": user.role,
+            "avatar": user.avatar_url,
         }
     }
 

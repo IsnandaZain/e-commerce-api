@@ -10,6 +10,7 @@ from myshop.models import db
 from configuration import MyShopConfig
 
 STATIC_URL = MyShopConfig.STATIC_URL
+DEFAULT_AVATAR = MyShopConfig.DEFAULT_AVATAR
 
 
 class Users(db.Model):
@@ -58,6 +59,23 @@ class Users(db.Model):
             return self.birthday.timestamp()
         return 0
 
+    @property
+    def avatar_url(self):
+        if self.avatar == "" or self.avatar == None:
+            large = DEFAULT_AVATAR.format(size="large")
+            medium = DEFAULT_AVATAR.format(size="medium")
+            small = DEFAULT_AVATAR.format(size="small")
+
+        else:
+            large = "%s/avatar/%s/%s_large.%s" % (STATIC_URL, self.id, self.avatar, self.avatar_ext)
+            medium = "%s/avatar/%s/%s_medium.%s" % (STATIC_URL, self.id, self.avatar, self.avatar_ext)
+            small = "%s/avatar/%s/%s_small.%s" % (STATIC_URL, self.id, self.avatar, self.avatar_ext)
+
+        return {
+            "large": large,
+            "medium": medium,
+            "small": small
+        }
 
     def set_password(self, password: str):
         """Set user password
@@ -108,7 +126,7 @@ def get_by_id(user_id: int) -> Users:
     return Users.query.filter_by(id=user_id).first()
 
 def get_by_username(username: str) -> Users:
-    """Get user by username or emial
+    """Get user by username or email
 
     Args:
         username: username user
@@ -117,3 +135,14 @@ def get_by_username(username: str) -> Users:
         Users object
     """
     return Users.query.filter_by(username=username).first()
+
+def get_by_email(email: str) -> Users:
+    """Get user by email
+
+    Args:
+        email: email user
+
+    Return:
+        Users object
+    """
+    return Users.query.filter_by(email=email).first()

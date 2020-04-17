@@ -25,6 +25,8 @@ class MyShopConfig(object):
     STATIC_URL = "http://127.0.0.1:5000/file"
     STORAGE_PATH = getenv("STORAGE_PATH", "/var/www/html/file")
 
+    DEFAULT_AVATAR = STATIC_URL + "/default/avatar_default_{size}.jpg"
+
     INTERNAL_TOKEN = "bnsultjhbqyydugtjvchrioszozwxmlpcocdmjdv"
 
     # database config
