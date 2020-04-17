@@ -80,7 +80,7 @@ class Users(db.Model):
 
 
 def get_by_username_or_email(identifier: str) -> Users:
-    """Get user by username
+    """Get user by username or email
 
     Args:
         identifier: username or email user
@@ -94,3 +94,26 @@ def get_by_username_or_email(identifier: str) -> Users:
             Users.email == identifier
         )
     ).first()
+
+
+def get_by_id(user_id: int) -> Users:
+    """Get user by user_id
+
+    Args:
+        user_id: id user
+    
+    Return:
+        Users object
+    """
+    return Users.query.filter_by(id=user_id).first()
+
+def get_by_username(username: str) -> Users:
+    """Get user by username or emial
+
+    Args:
+        username: username user
+
+    Return:
+        Users object
+    """
+    return Users.query.filter_by(username=username).first()
