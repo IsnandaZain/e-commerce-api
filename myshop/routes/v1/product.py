@@ -27,6 +27,11 @@ def product_get(product_id):
             "fullname": product.user.fullname,
             "phone_number": product.user.phone_number,
         },
+        "product_image": {
+            "image": product.image_url,
+            "thumb": product.image_thumb_url,
+            "icon": product.image_icon_url 
+        },
         "stok": product.stok,
         "total_view": product.total_view,
         "total_review": product.total_review,
@@ -69,6 +74,11 @@ def product_list():
                     "id": product.user.id,
                     "fullname": product.user.fullname,
                     "phone_number": product.user.phone_number,
+                },
+                "product_image": {
+                    "image": product.image_url,
+                    "thumb": product.image_thumb_url,
+                    "icon": product.image_icon_url 
                 },
                 "stok": product.stok,
                 "total_view": product.total_view,

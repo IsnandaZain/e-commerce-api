@@ -92,7 +92,10 @@ class Products(db.Model):
         return {
             "id": self.user.id,
             "username": self.user.username,
-            "phone_number": self.user.phone_number
+            "fullname": self.user.fullname,
+            "avatar": self.user.avatar_url,
+            "email": self.user.email,
+            "phone_number": self.user.phone_number,
         }
 
 def get_by_id(product_id) -> Products:
