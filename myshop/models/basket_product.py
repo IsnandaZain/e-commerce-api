@@ -14,6 +14,8 @@ class BasketProducts(db.Model):
 
     product_id = db.Column(db.Integer, ForeignKey("products.id"), default=0)
 
+    checkout_id = db.Column(db.Integer, ForeignKey("checkouts.id"), default=0)
+
     total = db.Column(db.Integer, default=0)
 
     is_deleted = db.Column(db.Integer, default=0)
@@ -31,6 +33,9 @@ class BasketProducts(db.Model):
     basket = relationship("Baskets", backref="basketproduct_basket",
                           primaryjoin="and_(BasketProducts.basket_id==Baskets.id, "
                                       "BasketProducts.is_deleted==0)")
+
+    checkout = relationship("Checkouts", backref="basketproduct_checkout",
+                            primaryjoin="BasketProducts.checkout_id==Checkouts.id")
 
     def __init__(self, basket_id, product_id, total):
         """
