@@ -96,6 +96,10 @@ def item_delete(basket_id: int, product_ids: int):
         sub_total = sub_total - (basket_product.product.price * basket_product.total)
         total_product -= 1
 
+    # delete keranjang jika total_product == 0
+    if total_product == 0:
+        basket.is_deleted = 1
+
     basket.total_product = total_product
     basket.sub_total = sub_total
     db.session.add(basket)

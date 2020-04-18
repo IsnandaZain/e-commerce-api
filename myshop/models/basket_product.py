@@ -18,6 +18,8 @@ class BasketProducts(db.Model):
 
     is_deleted = db.Column(db.Integer, default=0)
 
+    is_checkout = db.Column(db.Integer, default=0)
+
     created_on = db.Column(db.DateTime, default=0)
 
     updated_on = db.Column(db.DateTime, default=0)
@@ -27,7 +29,7 @@ class BasketProducts(db.Model):
                                        "Products.is_deleted==0)")
 
     basket = relationship("Baskets", backref="basketproduct_basket",
-                          primaryjoin="and_(BasketProducts.basket_id==Baskets.id ,"
+                          primaryjoin="and_(BasketProducts.basket_id==Baskets.id, "
                                       "BasketProducts.is_deleted==0)")
 
     def __init__(self, basket_id, product_id, total):
