@@ -14,6 +14,8 @@ class Baskets(db.Model):
 
     sub_total = db.Column(db.Integer, default=0)
 
+    total_product = db.Column(db.Integer, default=0)
+
     is_deleted = db.Column(db.Integer, default=0)
 
     created_on = db.Column(db.DateTime, default=0)

@@ -26,6 +26,7 @@ def create(user_id: int, product_ids: List[int], totals: List[int]):
 
     # create keranjang product
     temp_sub_total = 0
+    temp_total_product = 0
     for i in range(len(product_ids)):
         # make sure product is exist
         product = product_mdl.get_by_id(product_id=product_ids[i])
@@ -52,7 +53,9 @@ def create(user_id: int, product_ids: List[int], totals: List[int]):
                 db.session.flush()
 
             temp_sub_total = temp_sub_total + (product.price * totals[i])
+            temp_total_product += 1
 
+    basket.total_product = temp_total_product
     basket.sub_total = temp_sub_total
     db.session.add(basket)
     db.session.flush()
@@ -79,6 +82,7 @@ def item_delete(basket_id: int, product_ids: int):
         basket.updated_on = pendulum.now()
 
     sub_total = basket.sub_total
+    total_product = basket.total_product
     for product_id in product_ids:
         basket_product = basket_product_mdl.get_by_basket_and_product(basket_id=basket_id, product_id=product_id)
 
@@ -90,7 +94,9 @@ def item_delete(basket_id: int, product_ids: int):
         db.session.flush()
 
         sub_total = sub_total - (basket_product.product.price * basket_product.total)
+        total_product -= 1
 
+    basket.total_product = total_product
     basket.sub_total = sub_total
     db.session.add(basket)
     db.session.flush()

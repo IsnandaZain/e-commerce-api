@@ -60,6 +60,7 @@ def basket_by_user(user_id):
             "id": basket.id,
             "user": basket.user_json,
             "basket_product": basket.basket_product_json,
+            "total_product": basket.total_product,
             "sub_total": basket.sub_total,
             "created_on": basket.created_on.timestamp(),
         }
