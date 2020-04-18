@@ -12,6 +12,8 @@ class Baskets(db.Model):
 
     user_id = db.Column(db.Integer, ForeignKey("users.id"), default=0)
 
+    sub_total = db.Column(db.Integer, default=0)
+
     is_deleted = db.Column(db.Integer, default=0)
 
     created_on = db.Column(db.DateTime, default=0)
@@ -35,6 +37,9 @@ class Baskets(db.Model):
         return {
             "id": self.user.id,
             "username": self.user.username,
+            "fullname": self.user.fullname,
+            "avatar": self.user.avatar_url,
+            "email": self.user.email,
             "phone_number": self.user.phone_number,
         }
 
@@ -65,3 +70,7 @@ class Baskets(db.Model):
 
 def get_by_userid(user_id: int) -> Baskets:
     return Baskets.query.filter_by(user_id=user_id, is_deleted=0).first()
+
+
+def get_by_id(basket_id: int) -> Baskets:
+    return Baskets.query.filter_by(id=basket_id, is_deleted=0).first()

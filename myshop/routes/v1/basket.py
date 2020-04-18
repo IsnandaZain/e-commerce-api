@@ -60,6 +60,7 @@ def basket_by_user(user_id):
             "id": basket.id,
             "user": basket.user_json,
             "basket_product": basket.basket_product_json,
+            "sub_total": basket.sub_total,
             "created_on": basket.created_on.timestamp(),
         }
 
@@ -79,14 +80,17 @@ def basket_delete():
     if None in (basket_id, product_id):
         raise BadRequest("terdapat komponen yang kosong")
 
-    basket_ctrl.item_delete(
+    basket = basket_ctrl.item_delete(
         basket_id=basket_id,
         product_ids=product_ids,
     )
 
     response = {
         "status": 200,
-        "message": "Berhasil menghapus product dari keranjang"
+        "id": basket.id,
+        "user": basket.user_json,
+        "basket_product": basket.basket_product_json,
+        "updated_on": basket.updated_on.timestamp(),
     }
 
     return jsonify(response)

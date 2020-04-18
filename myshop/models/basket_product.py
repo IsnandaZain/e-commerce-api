@@ -22,7 +22,9 @@ class BasketProducts(db.Model):
 
     updated_on = db.Column(db.DateTime, default=0)
 
-    product = relationship("Products", backref="basketproduct_product")
+    product = relationship("Products", backref="basketproduct_product",
+                           primaryjoin="and_(BasketProducts.product_id==Products.id, "
+                                       "Products.is_deleted==0)")
 
     basket = relationship("Baskets", backref="basketproduct_basket",
                           primaryjoin="and_(BasketProducts.basket_id==Baskets.id ,"

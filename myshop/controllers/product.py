@@ -40,9 +40,6 @@ def create(title: str, description: str, price: int, category: str, stok: int,
     elif img.mode == "L":
         img = img.convert("RGB")
 
-    if not image_valid_ratio(img):
-        raise  BadRequest("image ratio salah, gunakan ratio 3:4")
-
     # for transparent image image
     if img.mode == "RGBA":
         background = Image.new("RGB", img.size, (255, 255, 255))

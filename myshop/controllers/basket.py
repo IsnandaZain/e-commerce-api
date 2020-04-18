@@ -25,6 +25,7 @@ def create(user_id: int, product_ids: List[int], totals: List[int]):
         basket.updated_on = pendulum.now()
 
     # create keranjang product
+    temp_sub_total = 0
     for i in range(len(product_ids)):
         # make sure product is exist
         product = product_mdl.get_by_id(product_id=product_ids[i])
@@ -32,14 +33,29 @@ def create(user_id: int, product_ids: List[int], totals: List[int]):
         if not product:
             raise BadRequest("Product yang diinputkan sudah tidak tersedia")
         else:
-            basket_product = BasketProducts(
-                basket_id=basket.id,
-                product_id=product_ids[i],
-                total=totals[i]
-            )
+            # check if product is exist in basket
+            product_in_basket = basket_product_mdl.get_by_basket_and_product(basket_id=basket.id, product_id=product.id)
+            
+            if product_in_basket:
+                product_in_basket.total = product_in_basket.total + total[i]
+                db.session.add(product_in_basket)
+                db.session.flush()
 
-            db.session.add(basket_product)
-            db.session.flush()
+            else:
+                basket_product = BasketProducts(
+                    basket_id=basket.id,
+                    product_id=product_ids[i],
+                    total=totals[i]
+                )
+
+                db.session.add(basket_product)
+                db.session.flush()
+
+            temp_sub_total = temp_sub_total + (product.price * totals[i])
+
+    basket.sub_total = temp_sub_total
+    db.session.add(basket)
+    db.session.flush()
 
     return basket
 
@@ -54,6 +70,15 @@ def get_by_user(user_id):
 
 
 def item_delete(basket_id: int, product_ids: int):
+    # check that basket is exist
+    basket = basket_mdl.get_by_id(basket_id)
+
+    if not basket:
+        raise BadRequest("Keranjang tidak ditemukan")
+    else:
+        basket.updated_on = pendulum.now()
+
+    sub_total = basket.sub_total
     for product_id in product_ids:
         basket_product = basket_product_mdl.get_by_basket_and_product(basket_id=basket_id, product_id=product_id)
 
@@ -63,3 +88,11 @@ def item_delete(basket_id: int, product_ids: int):
         basket_product.is_deleted = 1
         db.session.add(basket_product)
         db.session.flush()
+
+        sub_total = sub_total - (basket_product.product.price * basket_product.total)
+
+    basket.sub_total = sub_total
+    db.session.add(basket)
+    db.session.flush()
+
+    return basket
