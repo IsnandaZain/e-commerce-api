@@ -43,6 +43,8 @@ Sebuah API untuk keperluan Website E-Commerce yang mencakup fitur : <br>
   <li> Memberikan rating pada product</li>
 </ul>
 
-<h4>Search Product</h4>
-
-<h4> Pengecekan Resi </h4>
+<h4>Search</h4>
+<ul>
+  <li> Search Product</li>
+  <li> Search User</li>
+</ul>
