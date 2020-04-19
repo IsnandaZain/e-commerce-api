@@ -38,3 +38,50 @@ def search_product(keyword: str, sort: str = "match", page: int = 1, count: int 
     )
 
     return product
+
+
+def search_user(keyword: str, sort: str = "match", role_: str = "user",
+                page: int = 1, count: int = 12):
+    """Search user
+
+    """
+    keyword = keyword.strip(punctuation)
+    if keyword == "":
+        return None
+
+    filters = [Users.username.like("%{}%".format(keyword))]
+
+    if role_:
+        role_map = {
+            "user": Users.role == "user",
+            "admin": Users.role == "admin"
+        }
+
+        filters.append(role_map[role_])
+
+    sort_collections = {
+        "-id": Users.id.desc(),
+        "id": Users.id.asc(),
+        "match": db.case(
+            (
+                (Users.username == keyword, 0),
+                (Users.username.like("{}%".format(keyword)), 1),
+                (Users.username.like("%{}%".format(keyword)), 2),
+                (Users.username.like("%{}".format(keyword)), 3),
+            ), else_=4
+        ).asc()
+    }
+
+    sort_apply = sort_collections[sort]
+
+    users = Users.query.filter(
+        *filters
+    ).order_by(
+        sort_apply
+    ).paginate(
+        page=page,
+        per_page=count,
+        error_out=False
+    )
+
+    return users
